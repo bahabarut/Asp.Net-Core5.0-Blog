@@ -1,0 +1,45 @@
+﻿@using EntityLayer.Concrete
+@model Blog
+@{
+    ViewData["Title"] = "BlogAdd";
+    Layout = "~/Views/Shared/WriterLayout.cshtml";
+}
+
+<div class="page-header">
+    <h3 class="page-title"> Yeni Blog Girişi </h3>
+</div>
+
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <form class="form-wrapper" method="post">
+                    <div class="form-group">
+                        <input type="text" name="BlogTitle" class="form-control mb-0" placeholder="Blog Başlığı">
+                        <span class="text-danger" asp-validation-for="BlogTitle"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="BLogImage" class="form-control mb-0" placeholder="Blog Görseli">
+                        <span class="text-danger" asp-validation-for="BLogImage"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="BLogThumbnailImage" class="form-control mb-0" placeholder="Blog Küçük Görsel">
+                        <span class="text-danger" asp-validation-for="BLogThumbnailImage"></span>
+                    </div>
+                    <div class="form-group">
+                        <select asp-items="ViewBag.catVal" class="form-control mb-0" name="CategoryID">
+                            <option>Kategori Seçiniz</option>
+                        </select>
+                        <span class="text-danger" asp-validation-for="CategoryID"></span>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control mb-0" rows="3" name="BlogContent" placeholder="Blog İçeriği"></textarea>
+                        <span class="text-danger" asp-validation-for="BlogContent"></span>
+                    </div>
+
+                    <button type="submit" value="Kayıt Ol" class="btn btn-primary ">Send <i class="fa fa-envelope-open-o"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

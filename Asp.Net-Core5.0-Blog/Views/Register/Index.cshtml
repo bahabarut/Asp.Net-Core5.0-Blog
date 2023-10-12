@@ -1,0 +1,43 @@
+﻿@model EntityLayer.Concrete.Writer
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+
+<section class="section lb mt-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <form class="form-wrapper" method="post">
+                    <h4>Yazar Kayıt Sayfası</h4>
+                    <div class="form-group">
+                        <input type="text" name="WriterName" class="form-control mb-0" placeholder="Adınız Soyadınız">
+                        <span class="text-danger" asp-validation-for="WriterName"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="WriterMail" class="form-control mb-0" placeholder="Mail Adresi">
+                        <span class="text-danger" asp-validation-for="WriterMail"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="WriterPassword" class="form-control mb-0" placeholder="Şifre">
+                        <span class="text-danger" asp-validation-for="WriterPassword" ></span>
+                    </div>
+
+                    <input type="text" name="WriterImage" class="form-control mb-0" placeholder="Görsel Dosya Yolu">
+                    <button style="min-width:-webkit-fill-available;" type="submit" value="Kayıt Ol" class="btn btn-primary justify-content-center">Send <i class="fa fa-envelope-open-o"></i></button>
+                    <a href="#" id="termBtn">Tüm Şartları Okudum, Kabul Ediyorum.</a>
+                </form>
+            </div>
+        </div>
+    </div><!-- end container -->
+</section>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+@* <script src="~/lib/jquery/dist/jquery.js"></script> *@
+<script>
+    $("#termBtn").click(function () {
+        swal("Site Kabul Şartları", "Hizmet Kullanımı: Hizmeti kullanırken tüm yerel, ulusal ve uluslararası yasalara uymayı kabul ediyorum.Gizlilik ve Veri Kullanımı: Kişisel bilgilerimin ve verilerimin Gizlilik Politikasına uygun olarak kullanılmasına izin veriyorum.İçerik Sorumluluğu: Hizmeti kullanırken yayınladığım veya paylaştığım içeriklerden ben sorumluyum ve yasalara aykırı içerikler paylaşmayacağım.Yetkilendirme: Hizmeti kullanırken sahip olduğum tüm gerekli izinlere ve haklara sahip olduğumu beyan ediyorum.");
+    })
+</script>
+

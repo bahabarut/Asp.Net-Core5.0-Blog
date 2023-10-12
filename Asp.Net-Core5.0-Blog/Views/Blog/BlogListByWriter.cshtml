@@ -1,0 +1,52 @@
+﻿@using EntityLayer.Concrete
+@model List<Blog>
+@{
+    ViewData["Title"] = "BlogListByWriter";
+    Layout = "~/Views/Shared/WriterLayout.cshtml";
+}
+<div class="page-header">
+    <h3 class="page-title"> Yazarın Blogları </h3>
+</div>
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">
+                    <a href="/Blog/BlogAdd" class="btn btn-sm btn-outline-info">Blog Ekle</a>
+                </h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Blog Başlığı</th>
+                            <th>Oluşturma Tarihi</th>
+                            <th>Kategori</th>
+                            <th>Durum</th>
+                            <th>Düzenle</th>
+                            <th>Sil</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var blog in Model)
+                        {
+                            <tr>
+                                <td>@blog.BlogID</td>
+                                <td>@blog.BlogTitle</td>
+                                <td>@(((DateTime)blog.BLogCreateDate).ToString("dd-MMM-yyyy"))</td>
+                                <td>@blog.Category.CategoryName</td>
+                                <td>
+                                    <span class="@(blog.BlogStatus ? "text-success" : "text-danger") ">
+                                        @(blog.BlogStatus ? "Aktif" : "Pasif")
+                                    </span>
+                                </td>
+                                <td><a class="btn btn-sm btn-outline-warning">Düzenle</a></td>
+                                <td><a href="/Blog/BlogDelete/@blog.BlogID" class="btn btn-sm btn-outline-danger">Sil</a></td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

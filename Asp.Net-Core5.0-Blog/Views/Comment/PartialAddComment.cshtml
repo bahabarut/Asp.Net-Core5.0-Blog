@@ -1,0 +1,31 @@
+﻿@{
+    // TempData["blogId"] = Model[0].BlogID;
+    TempData["blogId"] = Model[0].BlogID;
+}
+
+<h4>Yorum Ekle</h4>
+<br />
+
+<div class="custombox clearfix">
+    <h4 class="small-title">Yorum</h4>
+    <div class="row">
+        <div class="col-lg-12">
+            <form action="/Comment/PartialAddComment" class="form-wrapper" method="post">
+                <div class="form-group">
+                    <input type="text" name="CommentUserName" class="form-control" placeholder="Adınız Soyadınız">
+                    @* <span class="text-danger" asp-validation-for="CommentUserName"></span> *@
+                </div>
+                <div class="form-group">
+                    <input type="text" name="CommentTitle" class="form-control" placeholder="Yorum Başlığı">
+                    @* <span class="text-danger" asp-validation-for="CommentTitle"></span> *@
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" name="CommentContent" placeholder="Yorum İçeriği"></textarea>
+                    @* <span class="text-danger" asp-validation-for="CommentContent"></span> *@
+                </div>
+
+                <button style="min-width:-webkit-fill-available;" type="submit" class="btn btn-primary justify-content-center">Gönder</button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,58 @@
+﻿@using EntityLayer.Concrete
+@model List<Blog>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+
+<div class="page-title db">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                <h2> Bloglar</h2>
+            </div><!-- end col -->
+            <div class="col-lg-4 col-md-4 col-sm-12 hidden-xs-down hidden-sm-down">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Anasayfa</a></li>
+                    <li class="breadcrumb-item active">Bloglar</li>
+                </ol>
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</div><!-- end page-title -->
+
+
+<section class="section lb">
+    <div class="container">
+        <div class="row">
+            @foreach (var blog in Model)
+            {
+                <div class="col-md-4 bg-faded mt-3">
+                    <div class="blog-box wow fadeIn">
+                        <div class="post-media">
+                            <a href="marketing-single.html" title="">
+                                <img src="@blog.BLogImage" alt="" class="img-fluid">
+                                <div class="hovereffect">
+                                    <span></span>
+                                </div>
+                                <!-- end hover -->
+                            </a>
+                        </div>
+                        <!-- end media -->
+                        <div class="blog-meta big-meta text-center">
+                            <h4><a href="/Blog/BlogReadAll/@blog.BlogID" title="">@blog.BlogTitle</a></h4>
+                            <p>@blog.BlogContent?.Substring(0, blog.BlogContent.Substring(0, 130).LastIndexOf(" "))...</p>
+                            <small><a href="marketing-category.html" title="">@blog.Category.CategoryName</a></small>
+                            <small><a href="marketing-single.html" title="">@(((DateTime)blog.BLogCreateDate).ToString("dd-MMM-yyyy"))</a></small>
+                            <small><a href="#" title="">by Jack</a></small>
+                            <small><a href="#" title=""><i class="fa fa-eye"></i> 2291</a></small>
+                        </div><!-- end meta -->
+                        <div class="row justify-content-center">
+                            <a class="btn btn-sm btn-outline-success my-2 my-sm-0" type="button" href="/Blog/BlogReadAll/@blog.BlogID">Devamını oku</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section>
