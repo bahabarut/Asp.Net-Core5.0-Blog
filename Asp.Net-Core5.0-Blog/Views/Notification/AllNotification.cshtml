@@ -1,0 +1,40 @@
+﻿@model List<EntityLayer.Concrete.Notification>
+@{
+    ViewData["Title"] = "AllNotification";
+    Layout = "~/Views/Shared/WriterLayout.cshtml";
+}
+
+<div class="page-header">
+    <h3 class="page-title"> Tüm Bildirimler </h3>
+</div>
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                @*                 <h4 class="card-title">
+                <a href="/Blog/BlogAdd" class="btn btn-sm btn-outline-info">Blog Ekle</a>
+                </h4> *@
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Bildirim</th>
+                            <th>Tarih</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var not in Model)
+                        {
+                            <tr>
+                                <td>@not.NotificationID</td>
+                                <td>@not.NotificationDetails</td>
+                                <td>@(((DateTime)not.NotificationDate).ToString("dd-MMM-yyyy"))</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

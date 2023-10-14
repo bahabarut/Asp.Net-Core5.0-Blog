@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace Asp.Net_Core5._0_Blog.Controllers
@@ -18,6 +19,8 @@ namespace Asp.Net_Core5._0_Blog.Controllers
     public class BlogController : Controller
     {
         BlogManager bm = new BlogManager(new EfBlogRepository());
+        CategoryManager cm = new CategoryManager(new EfCategoryRepository());
+
         public IActionResult Index()
         {
             var values = bm.GetBlogListWithCategory();
@@ -39,7 +42,6 @@ namespace Asp.Net_Core5._0_Blog.Controllers
         public async Task<IActionResult> BlogAdd()
         {
 
-            CategoryManager cm = new CategoryManager(new EfCategoryRepository());
             List<SelectListItem> categoryValues = (from x in cm.GetList()
                                                    select new SelectListItem
                                                    {
@@ -71,6 +73,15 @@ namespace Asp.Net_Core5._0_Blog.Controllers
                 {
                     ModelState.AddModelError(res.PropertyName, res.ErrorMessage);
                 }
+                List<SelectListItem> categoryValues = (from x in cm.GetList()
+                                                       select new SelectListItem
+                                                       {
+                                                           Text = x.CategoryName.ToString(),
+                                                           Value = x.CategoryID.ToString()
+
+                                                       }).ToList();
+
+                ViewBag.catVal = categoryValues;
                 return View(p);
             }
         }
@@ -79,6 +90,28 @@ namespace Asp.Net_Core5._0_Blog.Controllers
             var blogVal = bm.GetById(id);
             bm.TDelete(blogVal);
             return RedirectToAction("BlogListByWriter", "Blog");
+        }
+        [HttpGet]
+        public IActionResult BlogEdit(int id)
+        {
+
+            List<SelectListItem> categoryValues = (from x in cm.GetList()
+                                                   select new SelectListItem
+                                                   {
+                                                       Text = x.CategoryName.ToString(),
+                                                       Value = x.CategoryID.ToString()
+
+                                                   }).ToList();
+            ViewBag.catVal = categoryValues;
+            var blogVal = bm.GetById(id);
+            return View(blogVal);
+        }
+
+        [HttpPost]
+        public IActionResult BlogEdit(Blog p)
+        {
+            bm.TUpdate(p);
+            return RedirectToAction("BLogListByWriter", "Blog");
         }
     }
 }

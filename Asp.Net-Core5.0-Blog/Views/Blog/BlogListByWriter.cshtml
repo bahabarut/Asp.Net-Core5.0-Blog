@@ -39,11 +39,10 @@
                                         @(blog.BlogStatus ? "Aktif" : "Pasif")
                                     </span>
                                 </td>
-                                <td><a class="btn btn-sm btn-outline-warning">Düzenle</a></td>
+                                <td><a href="/Blog/BlogEdit/@blog.BlogID" class="btn btn-sm btn-outline-warning">Düzenle</a></td>
                                 <td><a href="/Blog/BlogDelete/@blog.BlogID" class="btn btn-sm btn-outline-danger">Sil</a></td>
                             </tr>
                         }
-
                     </tbody>
                 </table>
             </div>

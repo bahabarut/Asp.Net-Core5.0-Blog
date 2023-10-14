@@ -28,7 +28,7 @@ namespace BusinessLayer.Concrete
 
         public void TUpdate(Blog blog)
         {
-            throw new NotImplementedException();
+            _blogDal.Update(blog);
         }
 
         public Blog GetById(int id)
