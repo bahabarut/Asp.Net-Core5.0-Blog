@@ -5,9 +5,11 @@ using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.IO;
+using System.Security.Claims;
 
 namespace Asp.Net_Core5._0_Blog.Controllers
 {
@@ -38,7 +40,8 @@ namespace Asp.Net_Core5._0_Blog.Controllers
         [HttpGet]
         public IActionResult WriterEditProfile()
         {
-            var writerVal = wm.GetById(1);
+            var id = int.Parse(User.Identity.Name);
+            var writerVal = wm.GetById(id);
             return View(writerVal);
         }
         [AllowAnonymous]

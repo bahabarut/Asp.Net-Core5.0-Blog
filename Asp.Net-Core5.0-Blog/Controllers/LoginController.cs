@@ -28,12 +28,13 @@ namespace Asp.Net_Core5._0_Blog.Controllers
             if (dataValue != null)
             {
                 var claims = new List<Claim> {
-                new Claim(ClaimTypes.Name, p.WriterMail)
+                new Claim(ClaimTypes.Email, p.WriterMail),
+                new Claim(ClaimTypes.Name, dataValue.WriterID.ToString())
                 };
                 var userIdentity = new ClaimsIdentity(claims, "a");
                 ClaimsPrincipal pricipal = new ClaimsPrincipal(userIdentity);
                 await HttpContext.SignInAsync(pricipal);
-                return RedirectToAction("Index", "Blog");
+                return RedirectToAction("Index", "Dashboard");
             }
             else
             {

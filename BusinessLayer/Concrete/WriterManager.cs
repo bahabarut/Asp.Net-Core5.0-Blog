@@ -1,6 +1,8 @@
 ﻿using BusinessLayer.Abstract;
 using DataAccessLayer.Abstract;
 using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Data.SqlClient.Server;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +18,7 @@ namespace BusinessLayer.Concrete
         public WriterManager(IWriterDal writerDal)
         {
             _writerDal = writerDal;
+            
         }
         public void TAdd(Writer writer)
         {
@@ -46,6 +49,5 @@ namespace BusinessLayer.Concrete
         {
             return _writerDal.GetListAll(x => x.WriterID == id);
         }
-
     }
 }

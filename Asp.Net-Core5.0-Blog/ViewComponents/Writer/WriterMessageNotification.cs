@@ -9,7 +9,7 @@ namespace Asp.Net_Core5._0_Blog.ViewComponents.Writer
         Message2Manager msm = new Message2Manager(new EfMessage2Repository());
         public IViewComponentResult Invoke()
         {
-            int id = 2;
+            var id = int.Parse(User.Identity.Name);
             var values = msm.GetInboxListByWriter(id);
             return View(values);
         }
