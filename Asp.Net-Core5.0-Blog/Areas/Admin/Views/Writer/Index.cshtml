@@ -1,0 +1,134 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+<input type="text" class="form-control mb-2" id="idValue" />
+<button class="btn btn-sm btn-primary" id="btnWriterList">Yazar listesi Getir</button>
+<button class="btn btn-sm btn-info ml-1" id="btnWriterById">Id Ye Göre Yazar Getir</button>
+<button class="btn btn-sm btn-success ml-1" id="btnWriterAdd">Yazar Ekle</button>
+<button class="btn btn-sm btn-danger ml-1" id="btnWriterDelete">Yazar Sil</button>
+<button class="btn btn-sm btn-danger ml-1" id="btnWriterUpdate">Yazar Güncelle</button>
+
+<div>
+    <input type="text" class="form-control mb-2" id="txtWriterId" placeholder="Yazar Id" />
+    <input type="text" class="form-control mb-2" id="txtWriterName" placeholder="Yazar Adı" />
+</div>
+<div>
+    <input type="text" class="form-control mb-2" id="txtId" placeholder="Silinecek Yazar Id" />
+</div>
+<div>
+    <input type="text" class="form-control mb-2" id="txtId1" placeholder="Güncellenecek Id" />
+    <input type="text" class="form-control mb-2" id="writerName1" placeholder="Güncellenecek İsim" />
+</div>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Yazarlar</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a>Admin</a>
+            </li>
+            <li class="breadcrumb-item active">
+                <strong>Yazarlar</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    @* <h5>Kategoriler</h5> *@
+                    @* <a href="/Admin/Category/AddCategory" class="btn btn-info btn-bitbucket ml-2"><i class="fa fa-plus mr-2"></i>Yeni Kategori</a> *@
+                </div>
+                <div class="ibox-content">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script>
+        $("#btnWriterList").click(function () {
+            $.ajax({
+                contentType: "application/json",
+                dataType: "json",
+                type: "Get",
+                url: "/Admin/Writer/WriterList",
+                success: function (data) {
+                    let w = jQuery.parseJSON(data);
+                    let tableHtml = "<table class=table table-hover><thead><tr> <th>Yazar Id</th> <th>Yazar Adı</th> </tr></thead> <tbody> ";
+                    $.each(w, (index, value) => {
+                        tableHtml += `<tr><td>${value.Id}</td><td>${value.Name}</td></tr>`;
+                    })
+                    tableHtml += "</tbody></table>";
+                    $(".ibox-content").html(tableHtml);
+                }
+            });
+        });
+
+        $("#btnWriterById").click(function () {
+            let id = $("#idValue").val();
+            $.ajax({
+                contentType: "application/json",
+                dataType: "json",
+                type: "GET",
+                url: "/Admin/Writer/WriterListById",
+                data: { writerId: id },
+                success: function (func) {
+                    let w = jQuery.parseJSON(func);
+                    let tableHtml = `<table class=table table-hover> <thead> <tr> <th>Id</th> <th>Yazar Adı</th> </tr></thead><tbody> <tr> <td>${w.Id}</td> <td>${w.Name}</td> </tr> </tbody> </table>`;
+                    $(".ibox-content").html(tableHtml);
+                }
+            });
+        });
+
+        $("#btnWriterAdd").click(function () {
+            let writer = {
+                Id: $("#txtWriterId").val(),
+                Name: $("#txtWriterName").val()
+            };
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Writer/AddWriter",
+                data: writer,
+                success: function (func) {
+                    let result = jQuery.parseJSON(func);
+                    alert("Ekleme Başarılı Bir Şekilde Gerçekleşti");
+                }
+            });
+        });
+
+        $("#btnWriterDelete").click(function () {
+            let id = $("#txtId").val();
+            $.ajax({
+                url: "/Admin/Writer/DeleteWriter/" + id,
+                type: "post",
+                dataType: "json",
+                success: function (func) {
+                    alert("Silme İşlemi Başarılı Bir Şekilde Gerçekleşti");
+                }
+            });
+        });
+        $("#btnWriterUpdate").click(function () {
+            let writer = {
+                Id: $("#txtId1").val(),
+                Name: $("#writerName1").val()
+            };
+            $.ajax({
+                type: "post",
+                url: "/Admin/Writer/UpdateWriter",
+                data: writer,
+                success: function (func) {
+                    alert("Yazar Güncellendi");
+                }
+            });
+        });
+    </script>
+}
+

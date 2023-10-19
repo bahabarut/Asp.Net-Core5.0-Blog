@@ -145,9 +145,7 @@
 
                 </nav>
             </div>
-            <div class="wrapper wrapper-content animated fadeInRight">
-                @RenderBody()
-            </div>
+            @RenderBody()
             <div class="footer">
                 <div class="float-right">
                     10GB of <strong>250GB</strong> Free.
@@ -181,6 +179,7 @@
             });
         });
     </script>
+    @await RenderSectionAsync("scripts")
 
 </body>
 
