@@ -10,38 +10,43 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace Asp.Net_Core5._0_Blog.Controllers
 {
-    [AllowAnonymous]
+    
     public class BlogController : Controller
     {
         BlogManager bm = new BlogManager(new EfBlogRepository());
         CategoryManager cm = new CategoryManager(new EfCategoryRepository());
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var values = bm.GetBlogListWithCategory();
 
             return View(values);
         }
+        [AllowAnonymous]
         public IActionResult BlogReadAll(int id)
         {
             ViewBag.blogId = id;
             var values = bm.GetBlogById(id);
             return View(values);
         }
+        [AllowAnonymous]
         public IActionResult BlogListByWriter()
         {
+            
             var values = bm.GetBlogListWithCategoryByWriter(1);
             return View(values);
         }
+
         [HttpGet]
         public async Task<IActionResult> BlogAdd()
         {
-
             List<SelectListItem> categoryValues = (from x in cm.GetList()
                                                    select new SelectListItem
                                                    {

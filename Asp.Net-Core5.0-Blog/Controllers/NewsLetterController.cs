@@ -19,7 +19,7 @@ namespace Asp.Net_Core5._0_Blog.Controllers
         {
             p.MailStauts = true;
             nm.TAdd(p);
-            return RedirectToAction("BLogReadAll", "Blog");
+            return PartialView();
         }
     }
 }

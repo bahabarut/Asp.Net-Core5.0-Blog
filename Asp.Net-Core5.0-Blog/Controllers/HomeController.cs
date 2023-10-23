@@ -20,7 +20,7 @@ namespace Asp.Net_Core5._0_Blog.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index","Blog");
         }
 
         public IActionResult Privacy()

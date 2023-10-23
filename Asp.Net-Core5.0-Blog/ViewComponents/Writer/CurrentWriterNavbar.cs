@@ -9,8 +9,7 @@ namespace Asp.Net_Core5._0_Blog.ViewComponents.Writer
         WriterManager wm = new WriterManager(new EfWriterRepository());
         public IViewComponentResult Invoke()
         {
-            var id = int.Parse(User.Identity.Name);
-            var val = wm.GetById(id);
+            var val = wm.GetCurrentUser(User.Identity.Name);
             return View(val);
         }
     }

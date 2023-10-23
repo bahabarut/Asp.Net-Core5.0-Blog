@@ -12,20 +12,44 @@
         <div class="col-lg-12">
             <form action="/Comment/PartialAddComment" class="form-wrapper" method="post">
                 <div class="form-group">
-                    <input type="text" name="CommentUserName" class="form-control" placeholder="Adınız Soyadınız">
+                    <input type="text" name="CommentUserName" id="txtUsername" class="form-control" placeholder="Adınız Soyadınız">
                     @* <span class="text-danger" asp-validation-for="CommentUserName"></span> *@
                 </div>
                 <div class="form-group">
-                    <input type="text" name="CommentTitle" class="form-control" placeholder="Yorum Başlığı">
+                    <input type="text" name="CommentTitle" id="txtTitle" class="form-control" placeholder="Yorum Başlığı">
                     @* <span class="text-danger" asp-validation-for="CommentTitle"></span> *@
                 </div>
                 <div class="form-group">
-                    <textarea class="form-control" name="CommentContent" placeholder="Yorum İçeriği"></textarea>
+                    <textarea class="form-control" id="txtContent" name="CommentContent" placeholder="Yorum İçeriği"></textarea>
                     @* <span class="text-danger" asp-validation-for="CommentContent"></span> *@
                 </div>
-
-                <button style="min-width:-webkit-fill-available;" type="submit" class="btn btn-primary justify-content-center">Gönder</button>
+                <button style="min-width:-webkit-fill-available;" id="btnSubmit" type="submit" class="btn btn-primary justify-content-center">Gönder</button>
             </form>
         </div>
     </div>
 </div>
+@* <script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript">
+    let curentUrl = window.location;
+    $("#btnSubmit").click(function () {
+        var tarih = new Date();
+        var val = {
+            CommentUserName: $("#txtUsername").val(),
+            CommentTitle: $("#txtTitle").val(),
+            CommentContent: $("#txtContent").val(),
+            CommentStatus: true,
+            BlogID: Number(curentUrl.pathname[curentUrl.pathname.length - 1]),
+            CommentDate: tarih
+        };
+
+        $.ajax({
+            type: "post",
+            url: "/Comment/PartialAddComment",
+            data: val,
+            success: function (func) {
+                console.log("işlem gerçekleşti");
+            }
+        });
+    });
+</script>
+ *@

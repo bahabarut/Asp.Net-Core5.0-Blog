@@ -1,4 +1,4 @@
-﻿@model EntityLayer.Concrete.Writer
+﻿@model UserUpdateViewModel
 @{
     ViewData["Title"] = "WriterEditProfile";
     Layout = "~/Views/Shared/WriterLayout.cshtml";
@@ -12,33 +12,41 @@
     <div class="card">
         <div class="card-body">
             <form class="forms-sample" method="post">
-                <input type="hidden" asp-for="WriterID" name="WriterID" />
-                <input type="hidden" asp-for="WriterImage" name="WriterImage" />
+                @* <input type="hidden" asp-for="@Model.Id" name="WriterID" /> *@
+                @* <input type="hidden" asp-for="@Model.FirstOrDefault().WriterImage" name="WriterImage" /> *@
                 <div class="form-group">
-                    <input type="text" class="form-control" name="WriterName" asp-for="WriterName" placeholder="Yazar Ad Soyad">
-                    <span class="text-danger" asp-validation-for="WriterName"></span>
+                    <input type="text" class="form-control" name="namesurname" asp-for="@Model.namesurname" placeholder="Yazar Ad Soyad">
+                    <span class="text-danger" asp-validation-for="@Model.namesurname"></span>
                 </div>
                 <div class="form-group">
-                    <input type="email" class="form-control" name="WriterMail" asp-for="WriterMail" placeholder="Mail Adresi">
-                    <span class="text-danger" asp-validation-for="WriterMail"></span>
+                    <input type="text" class="form-control" name="username" asp-for="@Model.username" placeholder="Kullanıcı Adı">
+                    <span class="text-danger" asp-validation-for="@Model.username"></span>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" name="WriterPassword" asp-for="WriterPassword" placeholder="Şifre">
-                    <span class="text-danger" asp-validation-for="WriterPassword"></span>
+                    <input type="email" class="form-control" name="mail" asp-for="@Model.mail" placeholder="Mail Adresi">
+                    <span class="text-danger" asp-validation-for="@Model.mail"></span>
                 </div>
                 <div class="form-group">
-                    <input type="file" name="img[]" class="file-upload-default">
-                    <div class="input-group col-xs-12">
-                        <input type="text" class="form-control file-upload-info" disabled placeholder="Yazar Görsel">
-                        <span class="input-group-append">
-                            <button class="file-upload-browse btn btn-gradient-primary" type="button">Resim Seç</button>
-                        </span>
-                    </div>
+                    <input type="text" class="form-control" name="password" asp-for="@Model.password" placeholder="Yeni Şifre">
+                    <span class="text-danger" asp-validation-for="@Model.password"></span>
                 </div>
                 <div class="form-group">
-                    <textarea class="form-control mb-0" asp-for="WriterAbout" rows="5" name="WriterAbout" placeholder="Yazar Hakkında"></textarea>
-                    <span class="text-danger" asp-validation-for="WriterAbout"></span>
+                    <input type="text" class="form-control" name="imageurl" asp-for="@Model.imageurl" placeholder="Image Url">
+                    <span class="text-danger" asp-validation-for="@Model.imageurl"></span>
                 </div>
+                @*                 <div class="form-group">
+                <input type="file" name="img[]" class="file-upload-default">
+                <div class="input-group col-xs-12">
+                <input type="text" class="form-control file-upload-info" disabled placeholder="Yazar Görsel">
+                <span class="input-group-append">
+                <button class="file-upload-browse btn btn-gradient-primary" type="button">Resim Seç</button>
+                </span>
+                </div>
+                </div> *@
+                @*                 <div class="form-group">
+                <textarea class="form-control mb-0" asp-for="@Model.FirstOrDefault().WriterAbout" rows="5" name="WriterAbout" placeholder="Yazar Hakkında"></textarea>
+                <span class="text-danger" asp-validation-for="@Model.FirstOrDefault().WriterAbout"></span>
+                </div> *@
                 <button type="submit" class="btn btn-gradient-primary mr-2">Güncelle</button>
                 <button class="btn btn-light">İptal</button>
             </form>

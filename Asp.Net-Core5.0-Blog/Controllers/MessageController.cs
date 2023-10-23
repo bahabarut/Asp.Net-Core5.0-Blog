@@ -1,7 +1,9 @@
 ﻿using BusinessLayer.Concrete;
+using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace Asp.Net_Core5._0_Blog.Controllers
 {
@@ -11,8 +13,10 @@ namespace Asp.Net_Core5._0_Blog.Controllers
         [AllowAnonymous]
         public IActionResult InBox()
         {
-            var id = int.Parse(User.Identity.Name);
-            var values = msm.GetInboxListByWriter(id);
+            Context c = new Context();
+            var userMail = c.Users.Where(x => x.UserName == User.Identity.Name).Select(y => y.Email).FirstOrDefault();
+            var userId = c.Writers.Where(x => x.WriterMail == userMail).Select(y => y.WriterID).FirstOrDefault();
+            var values = msm.GetInboxListByWriter(userId);
             return View(values);
         }
         [AllowAnonymous]

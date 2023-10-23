@@ -2,6 +2,7 @@
 using BusinessLayer.Concrete;
 using BusinessLayer.ValidationRules;
 using DataAccessLayer.EntityFramework;
+using DocumentFormat.OpenXml.Drawing.Charts;
 using EntityLayer.Concrete;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
@@ -10,12 +11,20 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.IO;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace Asp.Net_Core5._0_Blog.Controllers
 {
     public class WriterController : Controller
     {
         WriterManager wm = new WriterManager(new EfWriterRepository());
+        private readonly UserManager<AppUser> _userManager;
+
+        public WriterController(UserManager<AppUser> userManager)
+        {
+            _userManager = userManager;
+        }
+
         [AllowAnonymous]
         public IActionResult Index()
         {
@@ -38,32 +47,46 @@ namespace Asp.Net_Core5._0_Blog.Controllers
         }
         [AllowAnonymous]
         [HttpGet]
-        public IActionResult WriterEditProfile()
+        public async Task<IActionResult> WriterEditProfile()
         {
-            var id = int.Parse(User.Identity.Name);
-            var writerVal = wm.GetById(id);
-            return View(writerVal);
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            UserUpdateViewModel value = new UserUpdateViewModel()
+            {
+                namesurname = user.NameSurname,
+                username = user.UserName,
+                mail = user.Email,
+                imageurl = user.ImageUrl
+            };
+            return View(value);
+
         }
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult WriterEditProfile(Writer p)
+        public async Task<IActionResult> WriterEditProfile(UserUpdateViewModel p)
         {
-            WriterValidator wv = new WriterValidator();
-            ValidationResult results = wv.Validate(p);
-            if (results.IsValid)
-            {
-                wm.TUpdate(p);
-                return RedirectToAction("Index", "Dashboard");
-            }
-            else
-            {
-                foreach (var err in results.Errors)
-                {
-                    ModelState.AddModelError(err.PropertyName, err.ErrorMessage);
+            var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
+            currentUser.NameSurname = p.namesurname;
+            currentUser.UserName = p.username;
+            currentUser.Email = p.mail;
+            currentUser.ImageUrl=p.imageurl;
+            currentUser.PasswordHash = _userManager.PasswordHasher.HashPassword(currentUser, p.password);
+            var result = await _userManager.UpdateAsync(currentUser);   
+            //WriterValidator wv = new WriterValidator();
+            //ValidationResult results = wv.Validate(p);
+            //if (results.IsValid)
+            //{
+            //    wm.TUpdate(p);
+            //    return RedirectToAction("Index", "Dashboard");
+            //}
+            //else
+            //{
+            //    foreach (var err in results.Errors)
+            //    {
+            //        ModelState.AddModelError(err.PropertyName, err.ErrorMessage);
 
-                }
-                return View(p);
-            }
+            //    }
+            //}
+            return View(p);
         }
         [AllowAnonymous]
         [HttpGet]

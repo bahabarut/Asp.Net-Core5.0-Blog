@@ -1,7 +1,10 @@
+using DataAccessLayer.Concrete;
+using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.CodeAnalysis.Differencing;
@@ -28,6 +31,16 @@ namespace Asp.Net_Core5._0_Blog
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<Context>();
+            services.AddIdentity<AppUser, AppRole>(x =>
+            {
+                //burda identity þifre zorunluluklarýný ayarlayabiliyoruz
+                x.Password.RequireUppercase = false;
+
+            }).AddEntityFrameworkStores<Context>();
+            //services.AddIdentity<AppUser, AppRole>().AddUserStore<Context>();
+
+
             services.AddControllersWithViews();
 
             //services.AddSession();
@@ -42,7 +55,19 @@ namespace Asp.Net_Core5._0_Blog
                 {
                     x.LoginPath = "/Login/Index";
                 });
+
+            services.ConfigureApplicationCookie(opts =>
+            {
+                //Cookie settings
+                opts.Cookie.HttpOnly = true;
+                opts.ExpireTimeSpan = TimeSpan.FromMinutes(100);
+                opts.AccessDeniedPath = new PathString("/Login/AccessDenied/");
+                opts.LoginPath = "/Login/Index/";
+                opts.SlidingExpiration = true;
+            });
         }
+
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

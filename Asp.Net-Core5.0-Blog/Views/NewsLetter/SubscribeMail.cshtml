@@ -3,10 +3,30 @@
     <div class="newsletter-widget text-center align-self-center">
         <h3>Mail Bülteni Abone Olun!</h3>
         <p>Teknoloji , yazılım ve diğer alanlar...</p>
-        <form action="/NewsLetter/SubscribeMail" class="form-inline" method="post">
-            <input type="email" name="Mail" placeholder="Mail" required class="form-control" />
-            <input type="submit" value="Subscribe" class="btn btn-default btn-block" />
+        <form class="form-inline" method="post">
+            <input type="email" name="Mail" id="txtMail" placeholder="Mail" required class="form-control" />
+            <input type="submit" id="btnSubmit" value="Subscribe" class="btn btn-default btn-block" />
         </form>
         <h1></h1>
     </div><!-- end newsletter -->
 </div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript">
+    // var link = window.location.href;
+    $("#btnSubmit").click(function () {
+        var val = {
+            Mail: $("#txtMail").val()
+        };
+        
+        $.ajax({
+            type: "post",
+            url: "/NewsLetter/SubscribeMail",
+            data: val,
+            success: function (func) {
+                console.log("işlem gerçekleşti");
+                // window.location.href = link;
+            }
+        });
+    });
+</script>

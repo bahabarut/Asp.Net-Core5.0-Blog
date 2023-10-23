@@ -1,0 +1,92 @@
+﻿@model UserSignUpViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Register</title>
+
+    <link href="~/coreblogadmin2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/coreblogadmin2/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="~/coreblogadmin2/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="~/coreblogadmin2/css/animate.css" rel="stylesheet">
+    <link href="~/coreblogadmin2/css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+
+    <div class="middle-box text-center loginscreen   animated fadeInDown">
+        <div>
+            <div>
+
+                @* <h3 class="logo-name">Blog Core 5.0</h3> *@
+                <div asp-validation-summary="ModelOnly">
+
+                </div>
+
+            </div>
+            <h3>Kayıt Ekranı</h3>
+            <p>Yeni Bir Hesap Oluşturun</p>
+            <form class="m-t" role="form" asp-action="Index" asp-controller="RegisterUser">
+
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Adınız Soyadınız" asp-for="@Model.NameSurname" required="">
+                    <span class="text-danger" asp-validation-for="@Model.NameSurname"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="email" class="form-control" placeholder="Email" asp-for="@Model.Mail" required="">
+                    <span class="text-danger" asp-validation-for="@Model.Mail"></span>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Kullanıcı Adı" asp-for="@Model.UserName" required="">
+                    <span class="text-danger" asp-validation-for="@Model.UserName"></span>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Şifre" asp-for="@Model.Password" required="">
+                    <span class="text-danger" asp-validation-for="@Model.Password"></span>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Şifre Tekrer" asp-for="@Model.ConfirmPassword" required="">
+                    <span class="text-danger" asp-validation-for="@Model.ConfirmPassword"></span>
+                </div>
+
+                <div class="form-group">
+                    <div class="checkbox i-checks"><label> <input type="checkbox" asp-for="@Model.IsAcceptedTheContract"><i></i> Kullanım Şartları Okudum Kabul Ediyorum. </label></div>
+                    <span class="text-danger" asp-validation-for="@Model.IsAcceptedTheContract"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary block full-width m-b">Kayıt Ol</button>
+
+                <p class="text-muted text-center"><small>Bir Hesabınız Var Mı?</small></p>
+                <a class="btn btn-sm btn-white btn-block" href="/Index/Login">Giriş Yap</a>
+            </form>
+            <p class="m-t"> <small>Asp.Net Core 5.0 Proje Kampı &copy; @DateTime.Now.Year</small> </p>
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="~/coreblogadmin2/js/jquery-3.1.1.min.js"></script>
+    <script src="~/coreblogadmin2/js/popper.min.js"></script>
+    <script src="~/coreblogadmin2/js/bootstrap.js"></script>
+    <!-- iCheck -->
+    <script src="~/coreblogadmin2/js/plugins/iCheck/icheck.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });
+    </script>
+</body>
+
+</html>
