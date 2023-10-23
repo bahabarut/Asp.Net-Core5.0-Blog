@@ -1,11 +1,10 @@
 ﻿@model List<EntityLayer.Concrete.Message2>
 @{
-    ViewData["Title"] = "InBox";
+    ViewData["Title"] = "SendBox";
     Layout = "~/Views/Shared/WriterLayout.cshtml";
 }
-
 <div class="page-header">
-    <h3 class="page-title"> Gelen Kutusu </h3>
+    <h3 class="page-title"> Giden Kutusu </h3>
 </div>
 <div class="row">
     <div class="col-lg-12 grid-margin stretch-card">
@@ -19,9 +18,11 @@
                         <tr>
                             <th>#</th>
                             <th>Konu</th>
-                            <th>Gönderen</th>
+                            <th>Alıcı</th>
                             <th>Tarih</th>
                             <th>Mesajı Aç</th>
+                            <th>Düzenle</th>
+                            <th>Sil</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -30,9 +31,11 @@
                             <tr>
                                 <td>@msg.MessageID</td>
                                 <td>@msg.Subject</td>
-                                <td>@msg.SenderUser.NameSurname</td>
+                                <td>@msg.ReceiverUser.NameSurname</td>
                                 <td>@(((DateTime)msg.MessageDate).ToString("dd-MMM-yyyy"))</td>
                                 <td><a href="/Message/MessageDetails/@msg.MessageID" class="btn btn-sm btn-outline-warning">Aç</a></td>
+                                <td><a href="/Message/MessageEdit/@msg.MessageID" class="btn btn-sm btn-outline-success">Düzenle</a></td>
+                                <td><a href="/Message/MessageDelete/@msg.MessageID" onclick="return confirm(" Silmek istediğinize emin misiniz!")" class="btn btn-sm btn-outline-danger">Sil</a></td>
                             </tr>
                         }
                     </tbody>
@@ -41,4 +44,3 @@
         </div>
     </div>
 </div>
-

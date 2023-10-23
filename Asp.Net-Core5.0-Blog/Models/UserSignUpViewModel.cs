@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
 
 namespace Asp.Net_Core5._0_Blog.Models
 {
     public class UserSignUpViewModel
     {
+        public IFormFile UserImage { get; set; }
         [Display(Name = "Ad Soyad")]
         [Required(ErrorMessage = "Lütfen Ad Soyad Giriniz")]
         public string NameSurname { get; set; }

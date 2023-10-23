@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Concrete;
 using BusinessLayer.ValidationRules;
+using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using FluentValidation.Results;
@@ -16,12 +17,13 @@ using System.Threading.Tasks;
 
 namespace Asp.Net_Core5._0_Blog.Controllers
 {
-    
+
     public class BlogController : Controller
     {
         BlogManager bm = new BlogManager(new EfBlogRepository());
         CategoryManager cm = new CategoryManager(new EfCategoryRepository());
-
+        Context c = new Context();
+        int userId;
         [AllowAnonymous]
         public IActionResult Index()
         {
@@ -39,8 +41,8 @@ namespace Asp.Net_Core5._0_Blog.Controllers
         [AllowAnonymous]
         public IActionResult BlogListByWriter()
         {
-            
-            var values = bm.GetBlogListWithCategoryByWriter(1);
+            userId = c.Users.Where(x => x.UserName == User.Identity.Name).Select(y => y.Id).FirstOrDefault();
+            var values = bm.GetBlogListWithCategoryByWriter(userId);
             return View(values);
         }
 
@@ -65,9 +67,10 @@ namespace Asp.Net_Core5._0_Blog.Controllers
             ValidationResult results = bv.Validate(p);
             if (results.IsValid)
             {
+                userId = c.Users.Where(x => x.UserName == User.Identity.Name).Select(y => y.Id).FirstOrDefault();
                 p.BlogStatus = true;
                 p.BLogCreateDate = DateTime.Parse(DateTime.Now.ToShortDateString());
-                p.WriterID = 1;
+                p.UserID = userId;
                 bm.TAdd(p);
                 return RedirectToAction("BlogListByWriter", "Blog");
 
