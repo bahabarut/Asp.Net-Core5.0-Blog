@@ -29,6 +29,10 @@ namespace BusinessLayer.Concrete
         {
             return _message2Dal.GetListWithMessageBySender(id);
         }
+        public Message2 GetByIdWithSender(int id)
+        {
+            return _message2Dal.GetByIdWithSender(id);
+        }
 
         public List<Message2> GetList()
         {

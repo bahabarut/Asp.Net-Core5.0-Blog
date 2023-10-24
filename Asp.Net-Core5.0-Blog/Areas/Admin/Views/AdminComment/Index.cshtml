@@ -1,0 +1,69 @@
+﻿@model List<EntityLayer.Concrete.Comment>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Yorumlar</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a>Admin</a>
+            </li>
+            <li class="breadcrumb-item active">
+                <strong>Yorumlar</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    @* <h5>Kategoriler</h5> *@
+                    @* <a href="/Admin/Category/AddCategory" class="btn btn-info btn-bitbucket ml-2"><i class="fa fa-plus mr-2"></i>Yeni Kategori</a> *@
+                </div>
+                <div class="ibox-content">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Kullanıcı</th>
+                                <th>Blog</th>
+                                <th>Başlık</th>
+                                <th>Puan</th>
+                                <th>Tarih</th>
+                                <th>Düzenle</th>
+                                <th>Sil</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var com in Model)
+                            {
+                                <tr>
+                                    <th>@com.CommentID</th>
+                                    <th>@com.CommentUserName</th>
+                                    <td>@com.Blog.BlogTitle</td>
+                                    <td>@com.CommentTitle</td>
+                                    <td class="@(com.BlogScore <= 3 ? "text-danger" : (com.BlogScore > 3 && com.BlogScore <= 6 ? "text-warning" : "text-navy"))"><i class="fa fa-level-up pr-1"></i>@com.BlogScore</td>
+                                    <td>@(((DateTime)com.CommentDate).ToString("dd-MMM-yyyy"))</td>
+                                    <td><a href="/Admin/Comment/CommentEdit/@com.CommentID" id="DeleteBtn" class="btn btn-outline btn-warning btn-sm">Düzenle</a></td>
+                                    <td><a href="/Admin/Comment/CommentDelete/@com.CommentID" onclick="return confirm('Silmek İstediğinize Emin Misiniz?')" class="btn btn-outline btn-danger btn-sm">Sil</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <br />
+                    @* @Html.PagedListPager((IPagedList)Model, page=>Url.Action("Index",new {page})) *@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

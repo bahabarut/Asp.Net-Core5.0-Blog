@@ -28,5 +28,12 @@ namespace DataAccessLayer.EntityFramework
                 return c.Messages2.Include(y => y.ReceiverUser).Where(x => x.SenderID == id).ToList();
             }
         }
+        public Message2 GetByIdWithSender(int id)
+        {
+            using (Context c = new Context())
+            {
+                return c.Messages2.Include(y => y.SenderUser).Where(x => x.MessageID == id).FirstOrDefault();
+            }
+        }
     }
 }

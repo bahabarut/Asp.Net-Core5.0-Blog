@@ -1,20 +1,17 @@
-﻿@using X.PagedList
-@using X.PagedList.Mvc.Core
-@model IPagedList<EntityLayer.Concrete.Category>
+﻿@model List<EntityLayer.Concrete.AppUser>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "UserRoleList";
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
-
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
-        <h2>Kategoriler</h2>
+        <h2>Kullanıcı Rol Listesi</h2>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <a>Admin</a>
             </li>
             <li class="breadcrumb-item active">
-                <strong>Kategoriler</strong>
+                <strong>Kullanıcı Rol Listesi</strong>
             </li>
         </ol>
     </div>
@@ -28,36 +25,31 @@
             <div class="ibox ">
                 <div class="ibox-title">
                     @* <h5>Kategoriler</h5> *@
-                    <a href="/Admin/Category/AddCategory" class="btn btn-info btn-bitbucket ml-2"><i class="fa fa-plus mr-2"></i>Yeni Kategori</a>
+                    @* <a href="/Admin/Category/AddCategory" class="btn btn-info btn-bitbucket ml-2"><i class="fa fa-plus mr-2"></i>Yeni Kategori</a> *@
                 </div>
                 <div class="ibox-content">
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th>Kategroi Adı</th>
-                                <th>Düzenle</th>
-                                <th>Sil</th>
+                                <th>Kullanıcı</th>
+                                <th>Rol Ata</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var cat in Model)
+                            @foreach (var item in Model)
                             {
                                 <tr>
-                                    <th>@cat.CategoryID</th>
-                                    <td>@cat.CategoryName</td>
-                                    <td><a href="/Admin/Category/EditCategory/@cat.CategoryID" class="btn btn-outline btn-warning btn-sm">Düzenle</a></td>
-                                    <td><a href="/Admin/Category/CategoryDelete/@cat.CategoryID" onclick="return confirm('Silmek İstediğinize Emin Misiniz?')" class="btn btn-outline btn-danger btn-sm">Sil</a></td>
+                                    <th>@item.NameSurname</th>
+                                    <td><a href="/Admin/AdminRole/AssignRole/@item.Id" class="btn btn-outline btn-primary btn-sm">Rol Ata</a></td>
                                 </tr>
                             }
                         </tbody>
                     </table>
                     <br />
-                    @Html.PagedListPager((IPagedList)Model, page=>Url.Action("Index",new {page}))
+
+                    <a href="/Admin/AdminRole/Index" class="btn btn-outline btn-primary btn-sm">Rol Listesine Dön</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-

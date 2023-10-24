@@ -1,19 +1,19 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @model EntityLayer.Concrete.Category
 @{
-    ViewData["Title"] = "AddCategory";
+    ViewData["Title"] = "EditCategory";
     Layout = "~/Views/Shared/AdminLayout.cshtml";
-
 }
+
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
-        <h2>Yeni Kategori</h2>
+        <h2>Kategori Düzenle</h2>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <a>Admin</a>
             </li>
             <li class="breadcrumb-item active">
-                <strong>Yeni Kategori</strong>
+                <strong>Kategori Düzenle</strong>
             </li>
         </ol>
     </div>
@@ -29,14 +29,16 @@
                     <div class="row">
                         <div class="col-md-12">
                             <form role="form" method="post">
+                                <input type="hidden" name="CategoryID" class="form-control mb-0" asp-for="CategoryID">
+                                <input type="hidden" name="CategoryStatus" class="form-control mb-0" asp-for="CategoryStatus">
                                 <div class="form-group">
                                     <label for="CategoryName">Kategori Adı</label>
-                                    <input type="text" id="CategoryName" name="CategoryName" class="form-control mb-0">
+                                    <input type="text" id="CategoryName" name="CategoryName" class="form-control mb-0" asp-for="CategoryName">
                                     <span class="text-danger" asp-validation-for="CategoryName"></span>
                                 </div>
                                 <div class="form-group">
                                     <label for="CategoryDescription">Kategori Açıklaması</label>
-                                    <textarea id="CategoryDescription" class="form-control mb-0" rows="3" name="CategoryDescription"></textarea>
+                                    <textarea id="CategoryDescription" class="form-control mb-0" rows="3" name="CategoryDescription" asp-for="CategoryDescription"></textarea>
                                     <span class="text-danger" asp-validation-for="CategoryDescription"></span>
                                 </div>
                                 <button class="btn btn-sm btn-primary m-t-n-xs" type="submit"><strong>Kaydet</strong></button>
@@ -48,3 +50,4 @@
         </div>
     </div>
 </div>
+

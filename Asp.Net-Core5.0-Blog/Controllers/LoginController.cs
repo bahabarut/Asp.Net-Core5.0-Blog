@@ -31,6 +31,7 @@ namespace Asp.Net_Core5._0_Blog.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(UserSignInViewModel p)
         {
+            // bu 4 parametre alır 1.username 2.password 3.bool türünde (isPresistent) bilgileri hatırlasın mı gibi 4. de bool(lockoutOnFailure) sisteme 5 defa yanlış girerse kilitlenir (varsayılanı 5 değişebilir)
             var result = await _signInManager.PasswordSignInAsync(p.username, p.password, false, true);
             if (ModelState.IsValid)
             {
@@ -47,7 +48,11 @@ namespace Asp.Net_Core5._0_Blog.Controllers
             {
                 return View();
             }
-            // bu 4 parametre alır 1.username 2.password 3.bool türünde (isPresistent) bilgileri hatırlasın mı gibi 4. de bool(lockoutOnFailure) sisteme 5 defa yanlış girerse kilitlenir (varsayılanı 5 değişebilir)
+
+        }
+        public IActionResult AccessDenied()
+        {   
+            return View();  
 
         }
 

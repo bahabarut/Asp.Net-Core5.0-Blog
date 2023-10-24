@@ -11,5 +11,6 @@ namespace DataAccessLayer.Abstract
     {
         public List<Message2> GetListWithMessageByWriter(int id);
         public List<Message2> GetListWithMessageBySender(int id);
+        public Message2 GetByIdWithSender(int id);
     }
 }

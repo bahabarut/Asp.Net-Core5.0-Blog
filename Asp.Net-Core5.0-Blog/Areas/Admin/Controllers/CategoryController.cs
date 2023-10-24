@@ -42,6 +42,32 @@ namespace Asp.Net_Core5._0_Blog.Areas.Admin.Controllers
                 return View(p);
             }
         }
+        [HttpGet]
+        public IActionResult EditCategory(int id)
+        {
+            var value = cm.GetById(id);
+            return View(value);
+        }
+        [HttpPost]
+        public IActionResult EditCategory(Category p)
+        {
+            CategoryValidator cv = new CategoryValidator();
+            ValidationResult results = cv.Validate(p);
+            if (results.IsValid)
+            {
+                p.CategoryStatus = true;
+                cm.TUpdate(p);
+                return RedirectToAction("Index", "Category");
+            }
+            else
+            {
+                foreach (var res in results.Errors)
+                {
+                    ModelState.AddModelError(res.PropertyName, res.ErrorMessage);
+                }
+                return View(p);
+            }
+        }
         public IActionResult CategoryDelete(int id)
         {
             var value = cm.GetById(id);
