@@ -1,0 +1,57 @@
+﻿@model List<EntityLayer.Concrete.Contact>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>İletişim Kutusu</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a>Admin</a>
+            </li>
+            <li class="breadcrumb-item active">
+                <strong>İletişim Kutusu</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox ">
+                <div class="ibox-content">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Kullanıcı Adı</th>
+                                <th>Mail</th>
+                                <th>Konu</th>
+                                <th>Tarih</th>
+                                <th>Detay</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <th>@item.ContactUserName</th>
+                                    <th>@item.ContactMail</th>
+                                    <th>@item.ContactSubject</th>
+                                    <th>@(((DateTime)item.ContactDate).ToString("dd-MMM-yyyy hh:m"))</th>
+                                    <td><a href="/Admin/AdminContact/ContactDetail/@item.ContactID" class="btn btn-outline btn-warning btn-sm">Detay</a></td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <br />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

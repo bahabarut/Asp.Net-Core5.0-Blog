@@ -17,17 +17,11 @@
                     <input type="hidden" name="BlogStatus" asp-for="BlogStatus" />
                     <input type="hidden" name="BLogCreateDate" asp-for="BLogCreateDate" />
                     <input type="hidden" name="UserID" asp-for="UserID" />
+                    <input type="hidden" name="BLogImage" asp-for="BLogImage" class="form-control mb-0" placeholder="Blog Görseli">
+                    <input type="hidden" name="BLogThumbnailImage" asp-for="BLogThumbnailImage" class="form-control mb-0" placeholder="Blog Küçük Görsel">
                     <div class="form-group">
                         <input type="text" name="BlogTitle" asp-for="BlogTitle" class="form-control mb-0" placeholder="Blog Başlığı">
                         <span class="text-danger" asp-validation-for="BlogTitle"></span>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" name="BLogImage" asp-for="BLogImage" class="form-control mb-0" placeholder="Blog Görseli">
-                        <span class="text-danger" asp-validation-for="BLogImage"></span>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" name="BLogThumbnailImage" asp-for="BLogThumbnailImage" class="form-control mb-0" placeholder="Blog Küçük Görsel">
-                        <span class="text-danger" asp-validation-for="BLogThumbnailImage"></span>
                     </div>
                     <div class="form-group">
                         <select asp-items="ViewBag.catVal" asp-for="CategoryID" class="form-control mb-0" name="CategoryID">
@@ -36,7 +30,7 @@
                         <span class="text-danger" asp-validation-for="CategoryID"></span>
                     </div>
                     <div class="form-group">
-                        <textarea class="form-control mb-0" asp-for="BlogContent" rows="3" name="BlogContent" placeholder="Blog İçeriği"></textarea>
+                        <textarea class="form-control mb-0" asp-for="BlogContent" rows="6" name="BlogContent" placeholder="Blog İçeriği"></textarea>
                         <span class="text-danger" asp-validation-for="BlogContent"></span>
                     </div>
 

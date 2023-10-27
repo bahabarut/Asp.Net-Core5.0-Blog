@@ -1,5 +1,5 @@
 ﻿@using EntityLayer.Concrete
-@model List<Writer>
+@model AppUser
 <div class="row">
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
@@ -16,13 +16,15 @@
                 </div>
                 </div> *@
                 <div class="d-flex mt-5 align-items-top">
-                    <img src="~/WriterImageFiles/@Model.FirstOrDefault().WriterImage" class="img-sm rounded-circle mr-3" alt="image">
+                    <img src="~/WriterImageFiles/@Model.ImageUrl" class="img-sm rounded-circle mr-3" alt="image">
                     <div class="mb-0 flex-grow">
-                        <h5 class="mr-2 mb-2">@Model.FirstOrDefault().WriterName - @Model.FirstOrDefault().WriterMail</h5>
-                        <p class="mb-0 font-weight-light">@Model.FirstOrDefault().WriterAbout</p>
+                        <h5 class="mr-2 mb-2">@Model.NameSurname - @Model.Email</h5>
+                        <p class="mb-0 font-weight-light">
+                            Baha Barut, Antalya'da yaşayan deneyimli bir frontend yazılımcısıdır. Web geliştirme konusundaki uzmanlığı ve tutkusu, modern web teknolojileri ve kullanıcı deneyimini ön planda tutarak etkileyici ve kullanıcı dostu web uygulamaları oluşturmasına olanak tanır. İşine olan bağlılığı ve sürekli öğrenmeye açık olması, projelerinde başarılı sonuçlar elde etmesine yardımcı olur. Baha, web dünyasındaki yenilikleri yakından takip eder ve her projede en iyi uygulamaları benimsemek için çaba gösterir.
+                        </p>
                     </div>
-@*                     <div class="ml-auto">
-                        <i class="mdi mdi-heart-outline text-muted"></i>
+                    @*                     <div class="ml-auto">
+                    <i class="mdi mdi-heart-outline text-muted"></i>
                     </div> *@
                 </div>
             </div>

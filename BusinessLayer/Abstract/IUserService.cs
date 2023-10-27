@@ -9,5 +9,6 @@ namespace BusinessLayer.Abstract
 {
     public interface IUserService: IGenericService<AppUser>
     {
+        public AppUser GetByUserName(string name);
     }
 }

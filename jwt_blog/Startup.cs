@@ -60,6 +60,7 @@ namespace jwt_blog
             }
 
             app.UseRouting();
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

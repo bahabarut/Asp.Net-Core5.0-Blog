@@ -14,6 +14,7 @@ namespace DataAccessLayer.Abstract
         List<Blog> GetBlogByIdWithCategory(Expression<Func<Blog, bool>> filter);
         List<Blog> GetBlogListWithCategoryByWriter(int id);
         List<Blog> GetBlogListWithCategoryByWriter();
+        List<Blog> GetBlogByCategory(int id);
 
     }
 }

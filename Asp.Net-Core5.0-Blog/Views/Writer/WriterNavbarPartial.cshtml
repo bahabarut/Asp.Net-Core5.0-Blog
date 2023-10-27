@@ -3,6 +3,15 @@
         <li class="nav-item nav-profile">
             @await Component.InvokeAsync("CurrentWriterNavbar")
         </li>
+        @if (User.IsInRole("Admin"))
+        {
+            <li class="nav-item">
+                <a class="nav-link" href="/Admin/Widget/Index">
+                    <span class="menu-title">Admin Paneli</span>
+                    <i class="mdi mdi-account-check menu-icon"></i>
+                </a>
+            </li>
+        }
         <li class="nav-item">
             <a class="nav-link" href="/Dashboard/Index">
                 <span class="menu-title">Dashboard</span>
@@ -49,12 +58,6 @@
             <a class="nav-link" href="/Blog/Index">
                 <span class="menu-title">Siteye Git</span>
                 <i class="mdi mdi-car menu-icon"></i>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/Writer/WriterEditProfile">
-                <span class="menu-title">Ayarlar</span>
-                <i class="mdi mdi-settings menu-icon"></i>
             </a>
         </li>
         <li class="nav-item">

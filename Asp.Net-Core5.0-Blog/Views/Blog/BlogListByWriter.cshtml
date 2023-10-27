@@ -18,6 +18,7 @@
                     <thead>
                         <tr>
                             <th>#</th>
+                            <th>Resim</th>
                             <th>Blog Başlığı</th>
                             <th>Oluşturma Tarihi</th>
                             <th>Kategori</th>
@@ -31,6 +32,7 @@
                         {
                             <tr>
                                 <td>@blog.BlogID</td>
+                                <td><img src="~/BlogImageFiles/@blog.BLogImage" class="mr-2" alt="image"></td>
                                 <td>@blog.BlogTitle</td>
                                 <td>@(((DateTime)blog.BLogCreateDate).ToString("dd-MMM-yyyy"))</td>
                                 <td>@blog.Category.CategoryName</td>

@@ -25,7 +25,7 @@ namespace DataAccessLayer.EntityFramework
             using (var c = new Context())
             {
                 // parantez içinde hangi entity içine dahil edilecek bu işleme Eager loading denir
-                return c.Blogs.Include(x => x.Category).ToList();
+                return c.Blogs.Include(x => x.Category).Include(y => y.User).ToList();
             }
         }
 
@@ -41,6 +41,11 @@ namespace DataAccessLayer.EntityFramework
         {
             using Context c = new Context();
             return c.Blogs.Include(x => x.Category).Include(y => y.User).ToList();
+        }
+        public List<Blog> GetBlogByCategory(int id)
+        {
+            using Context c = new Context();
+            return c.Blogs.Where(y => y.CategoryID == id).Include(x => x.Category).Include(z=>z.User).ToList();
         }
     }
 }

@@ -39,7 +39,6 @@
                                 <th>Başlık</th>
                                 <th>Puan</th>
                                 <th>Tarih</th>
-                                <th>Düzenle</th>
                                 <th>Sil</th>
                             </tr>
                         </thead>
@@ -53,7 +52,6 @@
                                     <td>@com.CommentTitle</td>
                                     <td class="@(com.BlogScore <= 3 ? "text-danger" : (com.BlogScore > 3 && com.BlogScore <= 6 ? "text-warning" : "text-navy"))"><i class="fa fa-level-up pr-1"></i>@com.BlogScore</td>
                                     <td>@(((DateTime)com.CommentDate).ToString("dd-MMM-yyyy"))</td>
-                                    <td><a href="/Admin/Comment/CommentEdit/@com.CommentID" id="DeleteBtn" class="btn btn-outline btn-warning btn-sm">Düzenle</a></td>
                                     <td><a href="/Admin/Comment/CommentDelete/@com.CommentID" onclick="return confirm('Silmek İstediğinize Emin Misiniz?')" class="btn btn-outline btn-danger btn-sm">Sil</a></td>
                                 </tr>
                             }

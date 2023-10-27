@@ -1,6 +1,7 @@
 ﻿using BusinessLayer.Abstract;
 using DataAccessLayer.Abstract;
 using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,12 @@ namespace BusinessLayer.Concrete
 
         public AppUser GetById(int id)
         {
+
             return _userDal.GetById(id);
+        }
+        public AppUser GetByUserName(string name)
+        {
+            return _userDal.GetUserByName(name);
         }
 
         public List<AppUser> GetList()

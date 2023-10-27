@@ -32,12 +32,12 @@ namespace BusinessLayer.Concrete
         }
         public Contact GetById(int id)
         {
-            throw new NotImplementedException();
+            return _contactDal.GetById(id);
         }
 
         public List<Contact> GetList()
         {
-            throw new NotImplementedException();
+            return _contactDal.GetListAll();
         }
 
 

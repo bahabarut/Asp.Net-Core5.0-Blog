@@ -1,4 +1,5 @@
-﻿using BusinessLayer.Concrete;
+﻿using Asp.Net_Core5._0_Blog.Models;
+using BusinessLayer.Concrete;
 using BusinessLayer.ValidationRules;
 using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
@@ -38,6 +40,7 @@ namespace Asp.Net_Core5._0_Blog.Controllers
             var values = bm.GetBlogById(id);
             return View(values);
         }
+
         [AllowAnonymous]
         public IActionResult BlogListByWriter()
         {
@@ -61,26 +64,37 @@ namespace Asp.Net_Core5._0_Blog.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult BlogAdd(Blog p)
+        public IActionResult BlogAdd(BlogAddViewModel p)
         {
-            BlogValidator bv = new BlogValidator();
-            ValidationResult results = bv.Validate(p);
-            if (results.IsValid)
+            if (ModelState.IsValid)
             {
+                Blog newBlog = new Blog();
+                if (p.imageFile != null)
+                {
+                    var extension = Path.GetExtension(p.imageFile.FileName);
+                    var newImage = Guid.NewGuid() + extension;
+                    var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/BlogImageFiles/", newImage);
+                    var stream = new FileStream(location, FileMode.Create);
+                    p.imageFile.CopyTo(stream);
+                    newBlog.BLogImage = newImage;
+                }
+                else
+                {
+                    newBlog.BLogImage = "defaultBlogImage.jpg";
+                }
+                newBlog.BlogTitle = p.title;
+                newBlog.BlogContent = p.content;
+                newBlog.CategoryID = p.catId;
                 userId = c.Users.Where(x => x.UserName == User.Identity.Name).Select(y => y.Id).FirstOrDefault();
-                p.BlogStatus = true;
-                p.BLogCreateDate = DateTime.Parse(DateTime.Now.ToShortDateString());
-                p.UserID = userId;
-                bm.TAdd(p);
+                newBlog.BlogStatus = true;
+                newBlog.BLogCreateDate = DateTime.Parse(DateTime.Now.ToShortDateString());
+                newBlog.UserID = userId;
+                bm.TAdd(newBlog);
                 return RedirectToAction("BlogListByWriter", "Blog");
 
             }
             else
             {
-                foreach (var res in results.Errors)
-                {
-                    ModelState.AddModelError(res.PropertyName, res.ErrorMessage);
-                }
                 List<SelectListItem> categoryValues = (from x in cm.GetList()
                                                        select new SelectListItem
                                                        {
@@ -120,6 +134,12 @@ namespace Asp.Net_Core5._0_Blog.Controllers
         {
             bm.TUpdate(p);
             return RedirectToAction("BLogListByWriter", "Blog");
+        }
+        [AllowAnonymous]
+        public IActionResult BlogByCategory(int id)
+        {
+            var values = bm.GetBlogByCategory(id);
+            return View("Index", values);
         }
     }
 }

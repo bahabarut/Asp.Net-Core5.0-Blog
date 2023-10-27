@@ -1,0 +1,60 @@
+﻿@model List<EntityLayer.Concrete.Notification>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Bildirimler</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a>Admin</a>
+            </li>
+            <li class="breadcrumb-item active">
+                <strong>Bildirimler</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <a href="/Admin/AdminNotification/AddNotification" class="btn btn-info btn-bitbucket ml-2"><i class="fa fa-plus mr-2"></i>Yeni Bildirim</a>
+                </div>
+                <div class="ibox-content">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Bildirim Tipi</th>
+                                <th>Detay</th>
+                                <th>Tarih</th>
+                                <th>Düzenle</th>
+                                <th>Sil</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var cat in Model)
+                            {
+                                <tr>
+                                    <th>@cat.NotificationType</th>
+                                    <td>@cat.NotificationDetails</td>
+                                    <td>@(((DateTime)cat.NotificationDate).ToString("dd-MMM-yyyy"))</td>
+                                    <td><a href="/Admin/AdminNotification/EditNotification/@cat.NotificationID" class="btn btn-outline btn-warning btn-sm">Düzenle</a></td>
+                                    <td><a href="/Admin/AdminNotification/DeleteNotification/@cat.NotificationID" onclick="return confirm('Silmek İstediğinize Emin Misiniz?')" class="btn btn-outline btn-danger btn-sm">Sil</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <br />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

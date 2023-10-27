@@ -19,7 +19,7 @@ namespace BusinessLayer.Concrete
         }
         public Notification GetById(int id)
         {
-            throw new NotImplementedException();
+            return _notificationDal.GetById(id);
         }
 
         public List<Notification> GetList()
@@ -29,17 +29,17 @@ namespace BusinessLayer.Concrete
 
         public void TAdd(Notification t)
         {
-            throw new NotImplementedException();
+            _notificationDal.Insert(t);
         }
 
         public void TDelete(Notification t)
         {
-            throw new NotImplementedException();
+            _notificationDal.Delete(t);
         }
 
         public void TUpdate(Notification t)
         {
-            throw new NotImplementedException();
+            _notificationDal.Update(t);
         }
     }
 }

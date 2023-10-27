@@ -10,7 +10,6 @@ namespace Asp.Net_Core5._0_Blog.Controllers
     [Authorize]
     public class DashboardController : Controller
     {
-
         public IActionResult Index()
         {
             Context c = new Context();

@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer.Abstract;
+using DataAccessLayer.Concrete;
 using DataAccessLayer.Repositories;
 using EntityLayer.Concrete;
 using System;
@@ -11,5 +12,12 @@ namespace DataAccessLayer.EntityFramework
 {
     public class EfUserRepository : GenericRepository<AppUser>, IUserDal
     {
+        public AppUser GetUserByName(string name)
+        {
+            using (Context c = new Context())
+            {
+                return c.Users.FirstOrDefault(x => x.UserName == name);
+            }
+        }
     }
 }

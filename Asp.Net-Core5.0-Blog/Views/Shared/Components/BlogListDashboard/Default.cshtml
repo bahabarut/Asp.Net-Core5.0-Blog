@@ -1,7 +1,7 @@
 ﻿@using EntityLayer.Concrete
 @model List<Blog>
 <div class="page-header">
-    <h3 class="page-title"> Son 10 Blog </h3>
+    <h3 class="page-title"> Son 5 Blog </h3>
 </div>
 <div class="row">
     <div class="col-12 grid-margin">
@@ -13,6 +13,7 @@
                         <thead>
                             <tr>
                                 <th> # </th>
+                                <th> Resim </th>
                                 <th> Başlık </th>
                                 <th> Kategori </th>
                                 <th> Tarih </th>
@@ -23,7 +24,8 @@
                             @foreach (var blog in Model)
                             {
                                 <tr>
-                                    <td><img src="@blog.BLogImage" class="mr-2" alt="image"></td>
+                                    <td> @blog.BlogID</td>
+                                    <td><img src="~/BlogImageFiles/@blog.BLogImage" class="mr-2" alt="image"></td>
                                     <td> @blog.BlogTitle</td>
                                     <td>
                                         <label class="badge badge-gradient-success">@blog.Category.CategoryName</label>

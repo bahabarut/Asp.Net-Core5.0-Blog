@@ -1,4 +1,5 @@
 ﻿using Asp.Net_Core5._0_Blog.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -18,6 +19,7 @@ namespace Asp.Net_Core5._0_Blog.Controllers
             _logger = logger;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return RedirectToAction("Index","Blog");
